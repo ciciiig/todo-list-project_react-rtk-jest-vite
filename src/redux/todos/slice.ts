@@ -26,6 +26,19 @@ export const todosSlice = createSlice({
         return todo
       })
     },
+    deleteTodo(state, action) {
+      state.allTodos = state.allTodos.filter(
+        (todo) => todo.key !== action.payload,
+      )
+
+      const storageTodos = JSON.parse(localStorage.getItem("todos"))
+      if (storageTodos) {
+        const updated = storageTodos.filter(
+          (todo) => todo.key !== action.payload,
+        )
+        localStorage.setItem("todos", JSON.stringify(updated))
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -38,7 +51,6 @@ export const todosSlice = createSlice({
         (state: TodosState, action: PayloadAction<Todo[]>) => {
           state.skeletonStatus = "idle"
           state.allTodos = action.payload
-          // add properties to the todos
           addProperties(state.allTodos)
         },
       )

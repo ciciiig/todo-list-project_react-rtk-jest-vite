@@ -1,10 +1,11 @@
 import "./TestTodos.css"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { Todo, fetchTodos, mergeTodos, selectTodos } from "../../redux/todos"
-import { FC, FormEvent, useEffect, useState } from "react"
-import { changeCheckedStatus } from "../../redux/todos/actions"
+import { FC, FormEvent, useEffect, useRef, useState } from "react"
+import { changeCheckedStatus, deleteTodo } from "../../redux/todos/actions"
 
 export const TestTodos: FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
   let { allTodos } = useAppSelector(selectTodos)
   const [inputValue, setInputValue] = useState("")
@@ -32,6 +33,10 @@ export const TestTodos: FC = () => {
       dispatch(mergeTodos(newItemWithProperties))
 
       setInputValue("")
+
+      if (inputRef.current) {
+        inputRef.current.focus()
+      }
     }
   }
 
@@ -65,8 +70,10 @@ export const TestTodos: FC = () => {
           }}
           type="text"
           autoComplete="off"
+          autoFocus
           id="newTodo"
           value={inputValue}
+          ref={inputRef}
         />
         <button>add</button>
       </form>
@@ -93,6 +100,12 @@ export const TestTodos: FC = () => {
                   }
                 />
                 {todo.title}
+                <button
+                  onClick={() => dispatch(deleteTodo(todo.key))}
+                  className="delete-button"
+                >
+                  x
+                </button>
               </label>
             </li>
           )
