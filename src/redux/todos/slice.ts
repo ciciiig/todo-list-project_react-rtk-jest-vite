@@ -31,10 +31,10 @@ export const todosSlice = createSlice({
         (todo) => todo.key !== action.payload,
       )
 
-      const storageTodos = JSON.parse(localStorage.getItem("todos"))
+      const storageTodos = JSON.parse(localStorage.getItem("todos") || "null")
       if (storageTodos) {
         const updated = storageTodos.filter(
-          (todo) => todo.key !== action.payload,
+          (todo: Todo) => todo.key !== action.payload,
         )
         localStorage.setItem("todos", JSON.stringify(updated))
       }
