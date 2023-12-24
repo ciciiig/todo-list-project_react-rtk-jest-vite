@@ -19,9 +19,10 @@ export const todosSlice = createSlice({
     },
     changeCheckedStatus(state, action) {
       state.allTodos.map((todo) => {
-        const { completed } = action.payload
-        if (todo.key === action.payload.key) {
+        const { completed, key } = action.payload
+        if (todo.key === key) {
           todo.completed = completed
+          localStorage.setItem("todos", JSON.stringify(state.allTodos))
         }
         return todo
       })
