@@ -9,6 +9,7 @@ export const TestTodos: FC = () => {
   const dispatch = useAppDispatch()
   let { allTodos } = useAppSelector(selectTodos)
   const [inputValue, setInputValue] = useState("")
+  const [completedToggle, setCompletedToggle] = useState(false)
 
   useEffect(() => {
     const fetchTodosAndMerge = async () => {
@@ -77,39 +78,58 @@ export const TestTodos: FC = () => {
         />
         <button>add</button>
       </form>
-      <h1>Todo List</h1>
+      <div className="toggle-container">
+        <h1>Todo List</h1>
+        <div className="toggle">
+          <p>Show Only Completed Todos</p>
+          <label className="switch">
+            <input
+              onChange={() => setCompletedToggle(!completedToggle)}
+              type="checkbox"
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      </div>
       <ul>
         {allTodos.length === 0 && "No Todos"}
-        {allTodos.map((todo) => {
-          return (
-            <li
-              key={todo.key}
-              className={`${todo.completed ? "todo-completed" : ""}`}
-            >
-              <label>
-                <input
-                  type="checkbox"
-                  checked={todo.completed}
-                  onChange={(e) =>
-                    dispatch(
-                      changeCheckedStatus({
-                        key: todo.key,
-                        completed: e.target.checked,
-                      }),
-                    )
-                  }
-                />
-                {todo.title}
-                <button
-                  onClick={() => dispatch(deleteTodo(todo.key))}
-                  className="delete-button"
-                >
-                  x
-                </button>
-              </label>
-            </li>
-          )
-        })}
+        {allTodos
+          .filter((todo) => {
+            if (completedToggle) {
+              return todo.completed
+            }
+            return true
+          })
+          .map((todo) => {
+            return (
+              <li
+                key={todo.key}
+                className={`${todo.completed ? "todo-completed" : ""}`}
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={todo.completed}
+                    onChange={(e) =>
+                      dispatch(
+                        changeCheckedStatus({
+                          key: todo.key,
+                          completed: e.target.checked,
+                        }),
+                      )
+                    }
+                  />
+                  {todo.title}
+                  <button
+                    onClick={() => dispatch(deleteTodo(todo.key))}
+                    className="delete-button"
+                  >
+                    x
+                  </button>
+                </label>
+              </li>
+            )
+          })}
       </ul>
     </div>
   )
