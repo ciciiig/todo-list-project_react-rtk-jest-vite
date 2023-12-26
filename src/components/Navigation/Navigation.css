@@ -1,0 +1,26 @@
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(0, 123, 255);
+    position: sticky;
+    width: 100%;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+}
+
+.nav-container .home {
+    margin-left: 2rem;
+}
+
+.nav-container .auth {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-container button {
+    margin: 0;
+    padding: 0.2rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
