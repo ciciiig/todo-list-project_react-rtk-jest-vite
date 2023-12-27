@@ -1,0 +1,45 @@
+.modal-back {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .75);
+    z-index: 10000;
+}
+
+.modal-window {
+    max-height: 350px;
+    width: 450px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.modal-window-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-window-acton-buttons-container {
+    margin: 1em 0;
+    display: flex;
+    justify-content: center;
+}
+
+textarea {
+    font-size: 18px;
+}
+
+.modal-window-header__close-button, .modal-window-acton-buttons-container__confirm-button {
+    margin-top: initial;
+    margin-left: 3px;
+    padding: 1px 2px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}

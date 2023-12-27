@@ -1,13 +1,28 @@
 import "./TestTodos.css"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { Todo, fetchTodos, mergeTodos, selectTodos } from "../../redux/todos"
-import { FC, FormEvent, useEffect, useRef, useState } from "react"
+import {
+  FC,
+  FormEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 import { changeCheckedStatus, deleteTodo } from "../../redux/todos/actions"
+import {
+  selectTodoModal,
+  setClickedTodoId,
+  setIsOpen,
+  setOriginalTodo,
+} from "../../redux/todoModal"
+import { TodoModalWindow } from "../TodoModalWindow/TodoModalWindow"
 
 export const TestTodos: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
   let { allTodos } = useAppSelector(selectTodos)
+  let todoModal = useAppSelector(selectTodoModal)
   const [inputValue, setInputValue] = useState("")
   const [completedToggle, setCompletedToggle] = useState(false)
 
@@ -61,8 +76,19 @@ export const TestTodos: FC = () => {
     ]
   }
 
+  const handleClickTodo = (todo: Todo) => {
+    console.log(todo)
+
+    const { id, key } = todo
+    dispatch(setClickedTodoId(id || key))
+    dispatch(setIsOpen(true))
+    dispatch(setOriginalTodo(todo))
+  }
+
   return (
     <div className="testTodos">
+      {todoModal.isOpen && <TodoModalWindow />}
+
       <form onSubmit={addTodo}>
         <label htmlFor="newTodo">Add Todo Item:</label>
         <input
@@ -121,10 +147,17 @@ export const TestTodos: FC = () => {
                   />
                   {todo.title}
                   <button
+                    id={todo.key}
+                    onClick={() => handleClickTodo(todo)}
+                    className="modal-button"
+                  >
+                    📃
+                  </button>
+                  <button
                     onClick={() => dispatch(deleteTodo(todo.key))}
                     className="delete-button"
                   >
-                    x
+                    ✖️
                   </button>
                 </label>
               </li>

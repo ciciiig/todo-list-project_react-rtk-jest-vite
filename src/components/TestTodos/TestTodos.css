@@ -11,7 +11,7 @@ li {
     text-decoration: line-through;
 }
 
-.delete-button {
+.delete-button, .modal-button {
     margin-top: initial;
     margin-left: 3px;
     padding: 1px 2px;

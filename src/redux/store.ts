@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 import { todosReducer } from "./todos"
+import { todoModalReducer } from "./todoModal"
 
 export const store = configureStore({
   reducer: {
     todos: todosReducer,
+    todoModal: todoModalReducer,
   },
 })
 

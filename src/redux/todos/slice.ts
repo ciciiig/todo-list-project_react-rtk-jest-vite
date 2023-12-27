@@ -7,6 +7,7 @@ const initialState: TodosState = {
   allTodos: [],
   skeletonStatus: "idle",
   error: undefined,
+  isModalWindowOpen: false,
 }
 
 export const todosSlice = createSlice({
@@ -39,6 +40,9 @@ export const todosSlice = createSlice({
         )
         localStorage.setItem("todos", JSON.stringify(updated))
       }
+    },
+    openModalWindow(state, action) {
+      state.isModalWindowOpen = !action.payload
     },
   },
 
