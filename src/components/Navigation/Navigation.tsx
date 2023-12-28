@@ -12,11 +12,20 @@ export const Navigation: FC = () => {
           <button onClick={() => navigate("/")}>📃</button>
         </div>
         <div className="home">
-          <button onClick={() => navigate("/")}>Home</button>
+          <button onClick={() => navigate("/")} style={{ color: "white" }}>
+            Home
+          </button>
         </div>
         <div className="auth">
-          <button onClick={() => navigate("/login")}>Login</button>
-          <button onClick={() => navigate("/register")}>Register</button>
+          <button onClick={() => navigate("/login")} style={{ color: "white" }}>
+            Login
+          </button>
+          <button
+            onClick={() => navigate("/register")}
+            style={{ color: "white" }}
+          >
+            Register
+          </button>
         </div>
       </div>
     </>
