@@ -10,6 +10,7 @@ import {
   setOriginalTodo,
 } from "../../redux/todoModal"
 import { TodoModalWindow } from "../TodoModalWindow/TodoModalWindow"
+import { SkeletonLoader } from "../SkeletonLoader/SkeletonLoader"
 
 export const Todos: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -78,6 +79,7 @@ export const Todos: FC = () => {
 
   return (
     <div className="todos">
+      <SkeletonLoader />
       {todoModal.isOpen && <TodoModalWindow />}
 
       <form onSubmit={addTodo}>
